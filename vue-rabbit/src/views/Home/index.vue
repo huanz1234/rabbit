@@ -12,16 +12,11 @@ import HomePanner from './components/HomePanner.vue'
     <HomeCategory />
     <HomeBanner />
   </div>
+  
   <HomeNew />
-  <HomeHot />
+  <!-- <HomeHot /> -->
   <HomeProduct />
 
 
-  <HomePanner title="新鲜好物" subTitle="新鲜好物 好多商品">
-    <div>我是一个插槽</div>
-  </HomePanner>
 
-  <HomePanner title="人气推荐" subTitle="人气推荐 好多商品">
-    <div>我是一个插槽</div>
-  </HomePanner>
 </template>
