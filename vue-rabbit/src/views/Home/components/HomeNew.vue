@@ -2,7 +2,6 @@
 import { onMounted } from 'vue';
 import HomePanner from './HomePanner.vue'
 import { getNewsAPI } from "@/apis/getNews";
-import { getHotAPI } from "@/apis/getHot";
 import { ref } from 'vue'
 
 const newsList = ref([])
@@ -12,27 +11,13 @@ const getNews = async () => {
   newsList.value = res.result
 }
 
-const hotList = ref([])
-// 获取人气推荐数据
-const getHot = async () => {
-  const res = await getHotAPI()
-  hotList.value = res.result
-  // console.log(hotList);
-
-}
-
-
 onMounted(() => {
   getNews()
-  getHot()
 })
 </script>
 
-
-
 <template>
   <HomePanner title="新鲜好物" subTitle="新鲜出炉 · 品质保证">
-    <!-- 下面是插槽主体内容模版 -->
     <ul class="goods-list">
       <li v-for="item in newsList" :key="item.id">
         <RouterLink to="/">
@@ -42,25 +27,8 @@ onMounted(() => {
         </RouterLink>
       </li>
     </ul>
-
-  </HomePanner>
-
-  <HomePanner title="人气推荐" subTitle="热门推荐 · 品质保证">
-    <!-- 下面是插槽主体内容模版 -->
-    <ul class="goods-list">
-      <li v-for="item in hotList" :key="item.id">
-        <RouterLink to="/">
-          <img v-img-lazy="item.picture" alt="" />
-          <p class="name">{{ item.name }}</p>
-          <p class="desc">{{ item.alt }}</p>
-          <p class="price">&yen;999</p>
-        </RouterLink>
-      </li>
-    </ul>
-
   </HomePanner>
 </template>
-
 
 <style scoped lang='scss'>
 .goods-list {
@@ -71,7 +39,6 @@ onMounted(() => {
   li {
     width: 306px;
     height: 406px;
-
     background: #f0f9f4;
     transition: all .5s;
 

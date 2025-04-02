@@ -2,8 +2,11 @@ import httpInstance from '@/utils/http'
 
 // 获取轮播图数据
 
-function getBannerAPI() {
-  return httpInstance.get('/home/banner')
+function getBannerAPI(params = {}) {
+  const { distributionSite = '1' } = params
+  return httpInstance.get('/home/banner',{
+    params: {distributionSite}
+  })
 }
 
 export {
