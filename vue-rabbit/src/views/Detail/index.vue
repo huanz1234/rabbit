@@ -3,7 +3,8 @@ import { getDetail } from '@/apis/detail';
 import DetailHot from './components/DetailHot.vue'
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
-import imgView from '@/components/imgView/index.vue'
+// import ImgView from '@/components/imgView/index.vue'
+// import XtxSku from '@/components/XtxSku/index.vue'
 
 const goods = ref({})
 const route = useRoute()
@@ -18,7 +19,9 @@ onMounted(() => {
   getGoods()
 })
 
-
+const skuChange = (sku) => {
+  console.log('skuChange', sku)
+}
 
 
 </script>
@@ -33,7 +36,7 @@ onMounted(() => {
           </el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: `/category/sub/${goods.categories[0].id}` }">{{ goods.categories[0].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item>{{goods.name}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ goods.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 商品信息 -->
@@ -42,7 +45,7 @@ onMounted(() => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <imgView :imageList="goods.mainPictures" />
+              <ImgView :imageList="goods.mainPictures" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -91,6 +94,7 @@ onMounted(() => {
                 </dl>
               </div>
               <!-- sku组件 -->
+              <XtxSku :goods="goods" @change="skuChange" />
 
               <!-- 数据组件 -->
 
