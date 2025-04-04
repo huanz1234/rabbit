@@ -10,8 +10,8 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 
 const form = ref({
-  account: '',
-  password: '',
+  account: '12056258282',
+  password: 'hm#qd@23!',
   agree: false
 })
 
