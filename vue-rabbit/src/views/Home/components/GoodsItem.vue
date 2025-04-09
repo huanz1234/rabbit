@@ -1,4 +1,5 @@
 <script setup>
+
 const props = defineProps({
   good: {
     type: Object,
@@ -7,11 +8,11 @@ const props = defineProps({
 })
 
 
+
 </script>
 
 <template>
-
-  <RouterLink to="/" class="goods-item">
+  <RouterLink :to="`/detail/${good.id}`" class="goods-item">
     <img v-img-lazy="good.picture" alt="" />
     <p class="name ellipsis">{{ good.name }}</p>
     <p class="desc ellipsis">{{ good.desc }}</p>

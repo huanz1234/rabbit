@@ -1,16 +1,18 @@
 <script setup>
-import {loginAPI} from '@/apis/user'
+import { loginAPI } from '@/apis/user'
 // 表单校验（账户加密码）
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useCartStore } from '@/stores/cartStore'
 
 const userStore = useUserStore()
+const cartStore = useCartStore()
 
 const form = ref({
-  account: '12056258282',
+  account: '12056258293',
   password: 'hm#qd@23!',
   agree: false
 })
@@ -42,12 +44,28 @@ const rules = {
 const formRef = ref(null)
 const router = useRouter()
 const doLogin = () => {
-  formRef.value.validate(async(valid) => {
+  formRef.value.validate(async (valid) => {
     if (valid) {
       console.log('登录成功')
       await userStore.getUserInfo(form.value)
       ElMessage({ type: 'success', message: '登录成功' })
-      router.replace('/') // 跳转到首页 replace 不提供后退到上一级功能
+      // 本地购物车得加入到接口购物车
+      cartStore.cartList.forEach(i => {
+        cartStore.addCart({
+          id: i.id,
+          name: i.name,
+          picture: i.picture,
+          price: i.price,
+          count: i.count,
+          skuId: i.skuId,
+          attrsText: i.attrsText,
+          selected: true
+        })
+      })
+      // 获取接口购物车数据
+      cartStore.updateCartListAPI()
+      router.replace('/') // 跳转到首页 replace 不提供后退到上一级功能      
+
     } else {
       console.log('校验失败')
     }
